@@ -1,0 +1,6 @@
+nginx.exe
+logs/*
+temp/*
+docs/*
+contrib/*
+html/*
