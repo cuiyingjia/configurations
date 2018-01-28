@@ -1,0 +1,83 @@
+#server configure log:
+
+yum -y update
+yum install -y python-setuptools && easy_install pip
+pip install --upgrade pip
+pip install shadowsocks
+yum install -y vim*
+vim /etc/shadowsocks.json
+
+firewall-cmd --zone=public --add-port=7200/tcp --permanent
+# --remove --query
+firewall-cmd --reload
+
+
+ssserver -c /etc/shadowsocks.json -d start
+
+mkdir /mt
+vim /mt/ss_start.sh
+
+yum search java | grep -i --color JDK
+
+yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel
+
+ yum install mariadb mariadb-server
+systemctl enable mariadb.service 
+systemctl start mariadb.service
+mysqladmin -u root password "xxxx"
+<!--
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+yum install php70w php70w-opcache php70w-fpm php70w-mysql php70w-mbstring
+
+systemctl start php-fpm
+netstat -napo |grep "php-fpm" | wc -l -->
+
+<!-- --yum install gcc-c++  
+--yum install pcre pcre-devel  
+--yum install zlib zlib-devel  
+--yum install openssl openssl--devel -->
+
+sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+yum install nginx 
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --reload
+
+#jenkins repo
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo
+rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key
+--/var/lib/jenkins/secrets/initialAdminPassword
+yum install jenkins
+vim /etc/sysconfig/jenkins
+service jenkins start
+
+mkdir /opt/web/webroot
+mkdir /opt/web/logs  
+
+<!-- yum -y install yum-utils
+yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum install certbot-nginx
+sudo certbot --authenticator webroot --installer nginx \
+  --webroot-path /opt/web/webroot/index.fox -d index.shadowfox.pro -->
+<!-- sudo certbot --authenticator standalone --installer nginx -->
+<!-- firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload -->
+
+yum install expect
+
+  #centos7 sftp as below
+  --yum install -y vsftpd
+  --#/etc/vsftpd/vsftpd.conf
+  --anonymous_enable=NO
+  --local_enable=YES
+  --chroot_local_user=YES
+  --chroot_list_enable=YES
+  --chroot_list_file=/etc/vsftpd/chroot_list
+  --userlist_enable=YES
+  --使用chroot_list
+
+
+  #ssh upload file
+  yum -y install lrzsz
+
