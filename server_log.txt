@@ -25,6 +25,25 @@ yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel
 systemctl enable mariadb.service 
 systemctl start mariadb.service
 mysqladmin -u root password "xxxx"
+mysql -uroot -p
+create database foxjar default character set utf8 collate utf8_general_ci;
+create database foxdjg default character set utf8 collate utf8_general_ci;
+create user 'ujar'@'localhost' identified by 'shadowfox';
+create user 'udjg'@'localhost' identified by 'shadowfox';
+grant select,insert,update,delete,create on foxjar.* to ujar;
+grant select,insert,update,delete,create on foxdjg.* to udjg;
+grant select on foxdjg.* to ujar;
+<!-- If <Error Code: 1133>, try add "identified by 'password'" at the end of the statement. -->
+<!-- for mysql5.7 try add "WITH GRANT OPTION" at the end of the grant statement. -->
+<!-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; -->
+flush  privileges;
+<!-- revoke all on *.* from username;--cacel privileges of certain user -->
+<!-- delete from mysql.user where user='usernmae';--delete user -->
+<!-- create user username@localhost identified by 'password' password expire interval 10 day -->
+<!-- alter user username@localhost password expire never; --5.7-->
+<!-- alter user username@localhost identified by 'password';--reset pwd -->
+
+
 <!--
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum install php70w php70w-opcache php70w-fpm php70w-mysql php70w-mbstring
