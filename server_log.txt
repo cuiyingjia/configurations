@@ -32,7 +32,8 @@ create user 'ujar'@'localhost' identified by 'shadowfox';
 create user 'udjg'@'localhost' identified by 'shadowfox';
 grant select,insert,update,delete,create on foxjar.* to ujar;
 grant select,insert,update,delete,create on foxdjg.* to udjg;
-grant select on foxdjg.* to ujar;
+<!-- GRANT ALL PRIVILEGES ON first.* TO 'test'@'localhost' IDENTIFIED BY '123456'; -->
+grant select on foxjar.* to udjg;
 <!-- If <Error Code: 1133>, try add "identified by 'password'" at the end of the statement. -->
 <!-- for mysql5.7 try add "WITH GRANT OPTION" at the end of the grant statement. -->
 <!-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; -->
@@ -95,7 +96,6 @@ yum install expect
   --chroot_list_file=/etc/vsftpd/chroot_list
   --userlist_enable=YES
   --使用chroot_list
-
 
   #ssh upload file
   yum -y install lrzsz
