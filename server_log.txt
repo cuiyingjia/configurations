@@ -1,39 +1,48 @@
 #server configure log:
 
 yum -y update
+yum -y update && yum upgrade
 yum install -y python-setuptools && easy_install pip
-pip install --upgrade pip
+#pip install --upgrade pip
 pip install shadowsocks
 yum install -y vim*
 vim /etc/shadowsocks.json
+ssserver -c /etc/shadowsocks.json -d start
 
-firewall-cmd --zone=public --add-port=7200/tcp --permanent
-# --remove --query
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+# --remove --query --list
 firewall-cmd --reload
 
-
-ssserver -c /etc/shadowsocks.json -d start
+vim /etc/ssh/sshd_config 
 
 mkdir /mt
 vim /mt/ss_start.sh
+chmod -R 755 /mt
+
+vim /etc/ssh/sshd_config 
+systemctl restart sshd
+#sestatus -v 
+#vim /etc/selinux/config
+
 
 yum search java | grep -i --color JDK
 
 yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel
 
- yum install mariadb mariadb-server
+yum install mariadb mariadb-server
 systemctl enable mariadb.service 
 systemctl start mariadb.service
 mysqladmin -u root password "xxxx"
 mysql -uroot -p
+
+################################################################################################
 create database foxjar default character set utf8 collate utf8_general_ci;
 create database foxdjg default character set utf8 collate utf8_general_ci;
 create user 'ujar'@'localhost' identified by 'shadowfox';
 create user 'udjg'@'localhost' identified by 'shadowfox';
 grant select,insert,update,delete,create on foxjar.* to ujar;
 grant select,insert,update,delete,create on foxdjg.* to udjg;
-<!-- GRANT ALL PRIVILEGES ON first.* TO 'test'@'localhost' IDENTIFIED BY '123456'; -->
-grant select on foxjar.* to udjg;
+grant select on foxdjg.* to ujar;
 <!-- If <Error Code: 1133>, try add "identified by 'password'" at the end of the statement. -->
 <!-- for mysql5.7 try add "WITH GRANT OPTION" at the end of the grant statement. -->
 <!-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; -->
@@ -43,26 +52,27 @@ flush  privileges;
 <!-- create user username@localhost identified by 'password' password expire interval 10 day -->
 <!-- alter user username@localhost password expire never; --5.7-->
 <!-- alter user username@localhost identified by 'password';--reset pwd -->
+################################################################################################
 
-
-<!--
+yum install epel-release
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum install php70w php70w-opcache php70w-fpm php70w-mysql php70w-mbstring
-
+systemctl enable php-fpm
 systemctl start php-fpm
-netstat -napo |grep "php-fpm" | wc -l -->
+netstat -napo |grep "php-fpm" | wc -l 
 
-<!-- --yum install gcc-c++  
---yum install pcre pcre-devel  
---yum install zlib zlib-devel  
---yum install openssl openssl--devel -->
+yum install gcc-c++  
+yum install pcre pcre-devel  
+yum install zlib zlib-devel  
+yum install openssl openssl--devel
 
 sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
-
 yum install nginx 
-firewall-cmd --zone=public --add-port=80/tcp --permanent
-firewall-cmd --reload
+mkdir /etc/web/webroot
+mkdir /etc/web/logs  
 
+######################################################################################
 #jenkins repo
 wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins.io/redhat-stable/jenkins.repo
 rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key
@@ -70,33 +80,33 @@ rpm --import http://pkg.jenkins.io/redhat-stable/jenkins.io.key
 yum install jenkins
 vim /etc/sysconfig/jenkins
 service jenkins start
+######################################################################################
 
-mkdir /opt/web/webroot
-mkdir /opt/web/logs  
-
-<!-- yum -y install yum-utils
+#certbot
+yum -y install yum-utils
 yum-config-manager --enable rhui-REGION-rhel-server-extras rhui-REGION-rhel-server-optional
-rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 sudo yum install certbot-nginx
 sudo certbot --authenticator webroot --installer nginx \
-  --webroot-path /opt/web/webroot/index.fox -d index.shadowfox.pro -->
-<!-- sudo certbot --authenticator standalone --installer nginx -->
-<!-- firewall-cmd --zone=public --add-port=443/tcp --permanent
-firewall-cmd --reload -->
+  --webroot-path /opt/web/webroot/index.fox -d index.shadowfox.pro 
+sudo certbot --authenticator standalone --installer nginx 
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+firewall-cmd --reload 
 
 yum install expect
 
-  #centos7 sftp as below
-  --yum install -y vsftpd
-  --#/etc/vsftpd/vsftpd.conf
-  --anonymous_enable=NO
-  --local_enable=YES
-  --chroot_local_user=YES
-  --chroot_list_enable=YES
-  --chroot_list_file=/etc/vsftpd/chroot_list
-  --userlist_enable=YES
-  --使用chroot_list
+#centos7 sftp as below
+yum install -y vsftpd
+/etc/vsftpd/vsftpd.conf
+anonymous_enable=NO
+local_enable=YES
+chroot_local_user=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd/chroot_list
+userlist_enable=YES
+vim /etc/vsftpd/chroot_list
+vim /etc/vsftpd/ftpusers
+systemctl restart vsftpd
 
-  #ssh upload file
-  yum -y install lrzsz
+#ssh upload file
+yum -y install lrzsz
 
