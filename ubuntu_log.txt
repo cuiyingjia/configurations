@@ -1,17 +1,21 @@
 #server configure log:
 
-yum -y update
-yum -y update && yum upgrade
-yum install -y python-setuptools && easy_install pip
+apt-get -y update
+
+
+apt-get install python-pip
 #pip install --upgrade pip
 pip install shadowsocks
-yum install -y vim*
 vim /etc/shadowsocks.json
 ssserver -c /etc/shadowsocks.json -d start
+#https://pypi.python.org/pypi/shadowsocks/2.8.2
+#check log:	less /var/log/shadowsocks.log
 
-firewall-cmd --zone=public --add-port=20/tcp --permanent
-# --remove --query --list-ports
-firewall-cmd --reload
+ufw status
+#ufw allow 1521/tcp
+#ufw allow from xxx.xxx.xx.xx
+#ufw delete allow xxxx
+#ufw deny smtp
 
 vim /etc/ssh/sshd_config 
 
