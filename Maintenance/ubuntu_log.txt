@@ -1,0 +1,107 @@
+#ubuntu 16.04 xenial
+
+apt-get -y update
+
+
+apt-get install python-pip
+#pip install --upgrade pip
+pip install shadowsocks
+vim /etc/shadowsocks.json
+ssserver -c /etc/shadowsocks.json -d start
+#https://pypi.python.org/pypi/shadowsocks/2.8.2
+#check log:	less /var/log/shadowsocks.log
+
+ufw status
+#ufw allow 1521/tcp
+#ufw allow from xxx.xxx.xx.xx
+#ufw delete allow xxxx
+#ufw deny smtp
+
+
+mkdir /mt
+vim /mt/ss_start.sh
+chmod -R 755 /mt
+
+apt install software-properties-common
+add-apt-repository ppa:webupd8team/java
+apt-get install oracle-java9-installer
+apt-get install oracle-java9-set-default
+#java -version
+
+apt install php -y
+#apt install php7.0-fpm php7.0-mysql php7.0-common php7.0-mbstring php7.0-gd php7.0-json php7.0-cli php7.0-curl libapache2-mod-php7.0
+netstat -napo |grep "php-fpm" | wc -l 
+########################################################START
+#ubuntu 16 and php7
+due to in the file etc/php/7.0/fpm/pool.d read as below:
+listen = /run/php/php7.0-fpm.sock
+in nginx should be as following:
+fastcgi_pass unix:/run/php/php7.0-fpm.sock
+########################################################END
+service php7.0-fpm restart
+
+apt install mysql-server mysql-client
+#start mysql
+#service mysql status
+mysql -uroot -p
+#pgrep mysqld
+#mysqladmin -u root password "xx"
+#/etc/mysql/my.cnf
+
+create database shadowfox default character set utf8 collate utf8_general_ci;
+flush  privileges;
+
+####################################################################################################START
+create database press default character set utf8 collate utf8_general_ci;
+create database foxdjg default character set utf8 collate utf8_general_ci;
+create user 'dbuser'@'localhost' identified by 'shadowfox';
+create user 'udjg'@'localhost' identified by 'shadowfox';
+#grant select,insert,update,delete,create on joomla.* to foxjoo;
+grant select,insert,update,delete,create on foxdjg.* to udjg;
+<!-- If <Error Code: 1133>, try add "identified by 'password'" at the end of the statement. -->
+<!-- for mysql5.7 try add "WITH GRANT OPTION" at the end of the grant statement. -->
+<!-- GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION; -->
+GRANT ALL PRIVILEGES ON press.* TO 'dbuser'@'localhost' IDENTIFIED BY 'shadowfox' WITH GRANT OPTION; 
+flush  privileges;
+<!-- revoke all on *.* from username;--cacel privileges of certain user -->
+<!-- delete from mysql.user where user='usernmae';--delete user -->
+<!-- create user username@localhost identified by 'password' password expire interval 10 day -->
+<!-- alter user username@localhost password expire never; --5.7-->
+<!-- alter user username@localhost identified by 'password';--reset pwd -->
+####################################################################################################END
+
+
+apt install nginx 
+mkdir /web/webroot
+mkdir /web/logs  
+
+#expect shell:
+apt install expect
+#ssh upload:
+apt install lrzsz
+
+#certbot
+#https://certbot.eff.org/lets-encrypt/ubuntuxenial-nginx
+apt update
+apt install software-properties-common
+add-apt-repository ppa:certbot/certbot
+apt update
+apt install python-certbot-nginx
+certbot --nginx
+
+
+=====================================================
+useradd -d /etc/web/webroot ftpu
+passwd ftpu
+usermod -s /sbin/nologin ftpu #cannot telnet only ftp
+#usermod -s /sbin/bash ftpu #normal user
+#usermod -d /DIR ftpu #change dir
+
+#vsftpd as below
+apt install -y vsftpd
+/etc/vsftpd.conf
+write_enable=yes
+/etc/ftpusers
+service vsftpd restart
+#/etc/init.d/vsftpd restart
+

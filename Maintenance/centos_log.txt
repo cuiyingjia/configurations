@@ -1,4 +1,4 @@
-#server configure log:
+#centos7:
 
 yum -y update
 yum -y update && yum upgrade
@@ -99,7 +99,7 @@ passwd ftpu
 usermod -s /sbin/nologin ftpu #cannot telnet only ftp
 #usermod -s /sbin/bash ftpu #normal user
 #usermod -d /DIR ftpu #change dir
-#centos7 sftp as below
+#centos7 vsftpd as below
 yum install -y vsftpd
 /etc/vsftpd/vsftpd.conf
 anonymous_enable=NO
