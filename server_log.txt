@@ -29,7 +29,7 @@ yum search java | grep -i --color JDK
 
 yum install java-1.8.0-openjdk  java-1.8.0-openjdk-devel
 
-yum install mariadb mariadb-server
+yum install mariadb mariadb-server 
 systemctl enable mariadb.service 
 systemctl start mariadb.service
 mysqladmin -u root password "xxxx"
@@ -94,19 +94,19 @@ sudo certbot --authenticator standalone --installer nginx
 yum install expect
 
 
-useradd -d /etc/web/webroot ftpuser
-passwd ftpuser
-usermod -s /sbin/nologin ftpuser #cannot telnet only ftp
-#usermod -s /sbin/bash ftpuser #normal user
-#usermod -d /DIR ftpuser #change dir
+useradd -d /etc/web/webroot ftpu
+passwd ftpu
+usermod -s /sbin/nologin ftpu #cannot telnet only ftp
+#usermod -s /sbin/bash ftpu #normal user
+#usermod -d /DIR ftpu #change dir
 #centos7 sftp as below
 yum install -y vsftpd
 /etc/vsftpd/vsftpd.conf
 anonymous_enable=NO
 local_enable=YES
-chroot_local_user=YES
-chroot_list_enable=YES
-chroot_list_file=/etc/vsftpd/chroot_list
+#chroot_local_user=YES
+#chroot_list_enable=YES
+#chroot_list_file=/etc/vsftpd/chroot_list
 userlist_enable=YES
 vim /etc/vsftpd/chroot_list
 vim /etc/vsftpd/ftpusers
