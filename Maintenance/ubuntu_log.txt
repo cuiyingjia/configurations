@@ -4,7 +4,7 @@ apt -y update
 
 
 apt install python-pip
-#pip install --upgrade pip
+pip install --upgrade pip
 pip install shadowsocks
 vim /etc/shadowsocks.json
 ssserver -c /etc/shadowsocks.json -d start
@@ -105,3 +105,20 @@ write_enable=yes
 service vsftpd restart
 #/etc/init.d/vsftpd restart
 
+
+#BBR
+wget --no-check-certificate https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && ./bbr.sh
+#verify
+uname -r
+
+sysctl net.ipv4.tcp_available_congestion_control
+#net.ipv4.tcp_available_congestion_control = bbr cubic reno
+
+sysctl net.ipv4.tcp_congestion_control
+#net.ipv4.tcp_congestion_control = bbr
+
+sysctl net.core.default_qdisc
+#net.core.default_qdisc = fq
+
+lsmod | grep bbr
+#tcp_bbr 
