@@ -1,9 +1,9 @@
 {
 "server":"_ipaddr",
 "_comment": "ipaddr above should be the internal network for aliyun and GCE",
-"server_port":_outport, 
+"server_port":10001, 
 "local_address":"127.0.0.1",
-"local_port":_inport,
+"local_port":1080,
 "password":"_yourpwd",
 "method":"_encode_related2your_client",
 "timeout":1000,
