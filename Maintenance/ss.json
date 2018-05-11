@@ -1,6 +1,6 @@
 {
 "server":"_ipaddr",
-"_comment": "ipaddr above should be the internal network for aliyun and GCE",
+"_comment": "ipaddr above should be the internal network for aliyun and GCE(remove this line before you deploy)",
 "server_port":10001, 
 "local_address":"127.0.0.1",
 "local_port":1080,
