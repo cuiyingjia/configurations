@@ -9,9 +9,7 @@ pip install shadowsocks
 vim /etc/shadowsocks.json
 ssserver -c /etc/shadowsocks.json -d start
 #https://pypi.python.org/pypi/shadowsocks/2.8.2
-#client install:
-#https://github.com/shadowsocks/shadowsocks-libev
-#kali base on debian7 :  cat /etc/debian_version 
+
 
 #check log:	less /var/log/shadowsocks.log
 
