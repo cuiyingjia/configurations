@@ -1,0 +1,2 @@
+<!-- add static site embed below statement between <Host></Host> -->
+<Context path="" docBase="cuiyingjia.github.io" debug="0" reloadable="true" crossContext="true"/>
