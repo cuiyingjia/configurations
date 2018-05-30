@@ -1,2 +1,4 @@
-<!-- add static site embed below statement between <Host></Host> -->
+<!-- add static site embed below statement between <Host></Host> 
+docBase also can like C:\DIR\DIR
+-->
 <Context path="" docBase="cuiyingjia.github.io" debug="0" reloadable="true" crossContext="true"/>
