@@ -5,3 +5,6 @@ Notice that if you have a domain name resolution the second-level domain will re
 
 2. maintenance shell
 server log include centos7 and ubuntu16.04
+
+3.others config
+ a. windows start up bios image
