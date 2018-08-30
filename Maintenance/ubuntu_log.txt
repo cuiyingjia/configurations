@@ -9,6 +9,8 @@ pip install shadowsocks
 vim /etc/shadowsocks.json
 ssserver -c /etc/shadowsocks.json -d start
 #https://pypi.python.org/pypi/shadowsocks/2.8.2
+#alias sss='ssserver -c /etc/shadowsocks.json -d start'
+#alias rsss='ssserver -c /etc/shadowsocks.json -d restart'
 
 
 #check log:	less /var/log/shadowsocks.log
