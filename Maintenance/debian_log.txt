@@ -1,0 +1,16 @@
+#https://libre-software.net/how-to-install-firefox-on-ubuntu-linux-mint/
+Backup the old Firefox launcher:
+sudo mv /usr/bin/firefox /usr/bin/firefox-old
+
+Create a symbolic link pointing to the new Firefox version:
+sudo ln -s /opt/firefox62/firefox /usr/bin/firefox
+
+sudo vim /usr/share/applications/firefox.desktop
+[Desktop Entry] 
+Name=Firefox 
+Comment= Firefox quantum
+Exec=/opt/firefox/firefox 
+Icon=/opt/firefox/browser/chrome/icons/default/default128.png
+Terminal=true
+Type=Application
+Categories=Application;Browser;
