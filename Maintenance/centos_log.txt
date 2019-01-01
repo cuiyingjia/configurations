@@ -25,7 +25,7 @@ vim /etc/ssh/sshd_config
 systemctl restart sshd
 #sestatus -v 
 #vim /etc/selinux/config
-
+alias sss='ssserver -c /etc/shadowsocks.json -d start'
 
 yum search java | grep -i --color JDK
 
