@@ -1,0 +1,11 @@
+yum install zlib-devel
+yum install libffi-devel
+
+yum install rh-python37
+scl enable rh-python36 bash
+#Please refrer to following URL carefully: https://linuxize.com/post/how-to-install-python-3-on-centos-7/
+#It is important to point out that Python 3.6 is set as the default Python version only in this shell session
+
+python -m venv cmsenv
+source cmsenv/bin/activate
+#to exit type : deactivate

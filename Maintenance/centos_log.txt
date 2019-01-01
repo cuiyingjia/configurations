@@ -9,6 +9,8 @@ yum install -y vim*
 vim /etc/shadowsocks.json
 ssserver -c /etc/shadowsocks.json -d start
 
+alias ssss="ssserver -c /etc/shadowsocks.json -d start"
+alias sssr="ssserver -c /etc/shadowsocks.json -d restart"
 firewall-cmd --zone=public --add-port=20/tcp --permanent
 # --remove --query --list-ports
 firewall-cmd --reload
