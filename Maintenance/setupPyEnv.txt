@@ -1,7 +1,11 @@
-yum install zlib-devel
-yum install libffi-devel
+#yum install zlib-devel
+#yum install libffi-devel
 
-yum install rh-python37
+for Ubuntu, just install pip3:
+apt install -y python3-pip
+apt-get install -y python3-venv
+
+yum install rh-python36
 scl enable rh-python36 bash
 #Please refrer to following URL carefully: https://linuxize.com/post/how-to-install-python-3-on-centos-7/
 #It is important to point out that Python 3.6 is set as the default Python version only in this shell session
@@ -9,3 +13,21 @@ scl enable rh-python36 bash
 python -m venv cmsenv
 source cmsenv/bin/activate
 #to exit type : deactivate
+
+
+#Djangocms
+
+#change pwd
+manage.py changepassword <username>
+
+#for publish use:
+python manage.py runserver 0.0.0.0:8000
+
+#to run in background and no hang up
+screen -S web #open a new window named web
+screen -ls #list all windows
+screen -r xxx #recovery window which pid is xxx 
+screen -r web #recovery window named web
+screen -X -S web quit # quit the specific screen
+
+ 
