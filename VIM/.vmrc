@@ -34,6 +34,8 @@ set scrolloff=4
 set showmatch
 set nu
 
+set backspace=indent,eol,start
+
 let python_highlight_all=1
 au Filetype python set tabstop=4
 au Filetype python set softtabstop=4
@@ -45,18 +47,10 @@ au Filetype python set fileformat=unix
 autocmd Filetype python set foldmethod=indent
 autocmd Filetype python set foldlevel=99
 
-Plugin 'vim-scripts/indentpython.vim'
+set splitbelow
+set splitright
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
-	
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+Plugin 'vim-scripts/indentpython.vim'	
 
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion=1
