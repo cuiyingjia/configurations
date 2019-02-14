@@ -76,15 +76,4 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 
 "按F5运行python"
-map <F5> :Autopep8<CR> :w<CR> :call RunPython()<CR>
-function RunPython()
-    let mp = &makeprg
-    let ef = &errorformat
-    let exeFile = expand("%:t")
-    setlocal makeprg=python\ -u
-    set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
-    silent make %
-    copen
-    let &makeprg = mp
-    let &errorformat = ef
-endfunction
+map <f10> :w<cr>:!python %<cr>
