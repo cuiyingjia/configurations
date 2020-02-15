@@ -1,3 +1,13 @@
+gsettings set org.gnome.desktop.interface gtk-theme "Flat-Remix-GTK-Blue"
+gsettings set org.gnome.desktop.interface icon-theme "Flat Remix"
+
+#enable gnome shell extension
+sudo apt install gnome-shell-extensions
+sudo apt install chrome-gnome-shell
+#https://micheleg.github.io/dash-to-dock/
+#https://ohmyz.sh/
+#https://github.com/mpv-player/mpv
+
 #http://meetfranz.com/ to contain wechat on ubuntu
 #mount exFAT
 sudo add-apt-repository universe
