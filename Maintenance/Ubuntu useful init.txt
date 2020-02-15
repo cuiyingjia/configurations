@@ -1,3 +1,10 @@
+#http://meetfranz.com/ to contain wechat on ubuntu
+#mount exFAT
+sudo add-apt-repository universe
+sudo apt-get update
+sudo apt install exfat-fuse exfat-utils
+
+
 #thmes and startup page
 #gnome-look.org
 sudo vi /etc/default/grub
